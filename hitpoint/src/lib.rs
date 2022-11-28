@@ -12,6 +12,7 @@ struct HitPoint {
 }
 
 impl HitPoint {
+    const MIN: u16 = 0:
     const MAX: u16 = 999;
 
     pub fn new(value: u16) -> Result<Self, AppError> {
@@ -22,6 +23,16 @@ impl HitPoint {
             )));
         }
         Ok(HitPoint { value: value })
+    }
+
+    pub fn damage(&self, damage_amount: u16) -> Self {
+        let damaged = self.value - damage_amount;
+        let corrected = if damaged < Self::MIN {
+            Self::MIN
+        } else {
+            damaged
+        };
+        Self { value: corrected }
     }
 }
 

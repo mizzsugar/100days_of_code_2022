@@ -34,6 +34,16 @@ impl HitPoint {
         };
         Self { value: corrected }
     }
+
+    pub fn recover(&self, recovery_amount: u16) -> Self {
+        let recovered = self.value + recovery_amount;
+        let corrected = if Self::MAX < recovered {
+            Self::MAX
+        } else {
+            recovered
+        };
+        Self { value: corrected }
+    }
 }
 
 #[cfg(test)]

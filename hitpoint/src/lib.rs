@@ -12,7 +12,7 @@ struct HitPoint {
 }
 
 impl HitPoint {
-    const MIN: u16 = 0:
+    const MIN: u16 = 0;
     const MAX: u16 = 999;
 
     pub fn new(value: u16) -> Result<Self, AppError> {
@@ -52,17 +52,14 @@ mod tests {
 
     #[test]
     fn valid_hit_point() {
-        let _hit_point_1 = HitPoint::new(0);
-        assert!(_hit_point_1.is_ok());
-        assert_eq!(_hit_point_1.ok().unwrap().value, 0);
+        let _hit_point_1 = HitPoint { value: 0 };
+        assert_eq!(_hit_point_1.value, 0);
 
-        let _hit_point_2 = HitPoint::new(1);
-        assert!(_hit_point_2.is_ok());
-        assert_eq!(_hit_point_2.ok().unwrap().value, 1);
+        let _hit_point_2 = HitPoint { value: 1 };
+        assert_eq!(_hit_point_2.value, 1);
 
-        let _hit_point_3 = HitPoint::new(999);
-        assert!(_hit_point_3.is_ok());
-        assert_eq!(_hit_point_3.ok().unwrap().value, 999);
+        let _hit_point_3 = HitPoint { value: 999 };
+        assert_eq!(_hit_point_3.value, 999);
     }
 
     #[test]

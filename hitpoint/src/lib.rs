@@ -8,14 +8,14 @@ enum AppError {
 }
 
 struct HitPoint {
-    value: u16,
+    value: i16,
 }
 
 impl HitPoint {
-    const MIN: u16 = 0;
-    const MAX: u16 = 999;
+    const MIN: i16 = 0;
+    const MAX: i16 = 999;
 
-    pub fn new(value: u16) -> Result<Self, AppError> {
+    pub fn new(value: i16) -> Result<Self, AppError> {
         if Self::MAX < value {
             return Err(AppError::InvalidArgumentError(format!(
                 "{}以下を指定してください",
@@ -25,7 +25,7 @@ impl HitPoint {
         Ok(HitPoint { value: value })
     }
 
-    pub fn damage(&self, damage_amount: u16) -> Self {
+    pub fn damage(&self, damage_amount: i16) -> Self {
         let damaged = self.value - damage_amount;
         let corrected = if damaged < Self::MIN {
             Self::MIN
@@ -35,7 +35,7 @@ impl HitPoint {
         Self { value: corrected }
     }
 
-    pub fn recover(&self, recovery_amount: u16) -> Self {
+    pub fn recover(&self, recovery_amount: i16) -> Self {
         let recovered = self.value + recovery_amount;
         let corrected = if Self::MAX < recovered {
             Self::MAX
@@ -68,5 +68,19 @@ mod tests {
         // TODO: 自作した例外のテストが発生しているかのテストを書く
         // https://github.com/mizzsugar/100days_of_code_2022/issues/2
         assert!(_hit_point_3.is_err());
+    }
+
+    #[test]
+    fn damage() {
+        let _hit_point = HitPoint{ value: 100};
+        let corrected = _hit_point.damage(99);
+        assert_eq!(corrected.value, 1)
+    }
+
+    #[test]
+    fn damage_over_current_point() {
+        let _hit_point = HitPoint{ value: 100};
+        let corrected = _hit_point.damage(101);
+        assert_eq!(corrected.value, 0)
     }
 }

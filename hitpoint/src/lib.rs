@@ -83,4 +83,18 @@ mod tests {
         let corrected = _hit_point.damage(101);
         assert_eq!(corrected.value, 0)
     }
+
+    #[test]
+    fn recover() {
+        let _hit_point = HitPoint{ value: 1};
+        let corrected = _hit_point.recover(998);
+        assert_eq!(corrected.value, 999)
+    }
+
+    #[test]
+    fn recover_over_max_point() {
+        let _hit_point = HitPoint{ value: 999};
+        let corrected = _hit_point.recover(1);
+        assert_eq!(corrected.value, 999)
+    }
 }

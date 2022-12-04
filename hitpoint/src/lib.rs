@@ -44,7 +44,37 @@ impl HitPoint {
         };
         Self { value: corrected }
     }
+
+    pub fn is_zero(&self) -> bool {
+        self.amount == Self::MIN
+    }
 }
+
+
+enum State {
+    Normal,
+    Dead,
+}
+
+
+struct Member {
+    hit_point: HitPoint,
+    state: State
+}
+
+
+impl Member {
+    fn new(hp: HitPoint) -> Self {
+        Self {hit_point: hp, state: State::Normal}
+    }
+    fn damage(&mut self, damage_amount: i16) {
+        self.hit_point.damage(damage_amount);
+        if self.hit_point.is_zero() {
+            self.state = State::Dead;
+        }
+    }
+}
+
 
 #[cfg(test)]
 mod tests {

@@ -46,7 +46,7 @@ impl HitPoint {
     }
 
     pub fn is_zero(&self) -> bool {
-        self.amount == Self::MIN
+        self.value == Self::MIN
     }
 }
 
@@ -126,5 +126,16 @@ mod tests {
         let _hit_point = HitPoint{ value: 999};
         let corrected = _hit_point.recover(1);
         assert_eq!(corrected.value, 999)
+    }
+
+    #[test]
+    fn member_damage() {
+        let mut member = Member::new(HitPoint{ value: 999});
+        member.damage(1);
+
+        // TODO: enumのテストを正しく書く
+        // 以下だとエラーになる
+        // error[E0277]: `State` doesn't implement `Debug`
+        // assert_eq!(number.state, State::Normal);
     }
 }

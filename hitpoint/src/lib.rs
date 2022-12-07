@@ -1,3 +1,4 @@
+use std::fmt;
 use anyhow::{self, Context};
 use thiserror::Error;
 
@@ -56,6 +57,14 @@ enum State {
     Dead,
 }
 
+impl fmt::Display for State {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        match *self {
+            State::Normal => write!(f, "[State::Normal]"),
+            State::Dead => write!(f, "[State::Dead]"),
+        }
+    }
+}
 
 struct Member {
     hit_point: HitPoint,
@@ -133,9 +142,6 @@ mod tests {
         let mut member = Member::new(HitPoint{ value: 999});
         member.damage(1);
 
-        // TODO: enumのテストを正しく書く
-        // 以下だとエラーになる
-        // error[E0277]: `State` doesn't implement `Debug`
-        // assert_eq!(number.state, State::Normal);
+        assert_eq!(member.state.to_string(), "[State::Normal]");
     }
 }

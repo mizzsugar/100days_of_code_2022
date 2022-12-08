@@ -77,8 +77,8 @@ impl Member {
         Self {hit_point: hp, state: State::Normal}
     }
     fn damage(&mut self, damage_amount: i16) {
-        self.hit_point.damage(damage_amount);
-        if self.hit_point.is_zero() {
+        let damaged = self.hit_point.damage(damage_amount);
+        if damaged.is_zero() {
             self.state = State::Dead;
         }
     }
@@ -143,5 +143,13 @@ mod tests {
         member.damage(1);
 
         assert_eq!(member.state.to_string(), "[State::Normal]");
+    }
+
+    #[test]
+    fn member_damage_zero() {
+        let mut member = Member::new(HitPoint{ value: 999});
+        member.damage(999);
+
+        assert_eq!(member.state.to_string(), "[State::Dead]");
     }
 }

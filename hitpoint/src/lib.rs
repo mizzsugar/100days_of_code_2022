@@ -66,6 +66,32 @@ impl fmt::Display for State {
     }
 }
 
+struct MagicPoint {
+    current_amount: i16,
+    original_max_amout: i16,
+    max_increments: Vec<i16>
+}
+
+impl MagicPoint {
+    pub fn current(self) -> i16 {
+        self.current_amount
+    }
+
+    pub fn max(self) -> i16 {
+        let mut amout = self.original_max_amout;
+        for point in self.max_increments {
+            amout += point;
+        }
+        amout
+    }
+
+    // TODO: recoverメッソッドを書く
+    // https://github.com/mizzsugar/100days_of_code_2022/issues/3
+
+    // consume_amountメソッドを書く
+    // https://github.com/mizzsugar/100days_of_code_2022/issues/4
+}
+
 struct Member {
     hit_point: HitPoint,
     state: State

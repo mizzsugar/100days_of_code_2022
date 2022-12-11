@@ -178,4 +178,13 @@ mod tests {
 
         assert_eq!(member.state.to_string(), "[State::Dead]");
     }
+
+    #[test]
+    fn max_magic_point() {
+        let magic_point = MagicPoint{ current_amount: 10, original_max_amout: 100, max_increments: vec![1, 2, 3] };
+        let max_point = magic_point.max();
+        let expected = 106;
+
+        assert_eq!(max_point, expected);
+    }
 }

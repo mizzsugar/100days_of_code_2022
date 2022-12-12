@@ -1,4 +1,5 @@
 use std::fmt;
+use std::cmp;
 use anyhow::{self, Context};
 use thiserror::Error;
 
@@ -85,8 +86,9 @@ impl MagicPoint {
         amout
     }
 
-    // TODO: recoverメッソッドを書く
-    // https://github.com/mizzsugar/100days_of_code_2022/issues/3
+    pub fn recover(self, recovery_amount: i16) -> i16 {
+        cmp::min(self.current_amount + recovery_amount, self.max())
+    }
 
     // consume_amountメソッドを書く
     // https://github.com/mizzsugar/100days_of_code_2022/issues/4
@@ -186,5 +188,23 @@ mod tests {
         let expected = 106;
 
         assert_eq!(max_point, expected);
+    }
+
+    #[test]
+    fn test_recover_magic_point() {
+        let magic_point = MagicPoint{ current_amount: 10, original_max_amout: 100, max_increments: vec![1, 2, 3] };
+        let recovered = magic_point.recover(95);
+        let expected = 105;
+
+        assert_eq!(recovered, expected);
+    }
+
+    #[test]
+    fn test_recover_magic_point_over_max_point() {
+        let magic_point = MagicPoint{ current_amount: 10, original_max_amout: 100, max_increments: vec![1, 2, 3] };
+        let recovered = magic_point.recover(97);
+        let expected = 106;
+
+        assert_eq!(recovered, expected);
     }
 }

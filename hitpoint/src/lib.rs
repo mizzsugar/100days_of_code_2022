@@ -74,6 +74,8 @@ struct MagicPoint {
 }
 
 impl MagicPoint {
+    const MIN: i16 = 0;
+
     pub fn current(self) -> i16 {
         self.current_amount
     }
@@ -90,8 +92,9 @@ impl MagicPoint {
         cmp::min(self.current_amount + recovery_amount, self.max())
     }
 
-    // consume_amountメソッドを書く
-    // https://github.com/mizzsugar/100days_of_code_2022/issues/4
+    pub fn consume(self, consume_amout: i16) -> i16 {
+        cmp::max(self.current_amount - consume_amout, Self::MIN)
+    }
 }
 
 struct Member {
@@ -204,6 +207,24 @@ mod tests {
         let magic_point = MagicPoint{ current_amount: 10, original_max_amout: 100, max_increments: vec![1, 2, 3] };
         let recovered = magic_point.recover(97);
         let expected = 106;
+
+        assert_eq!(recovered, expected);
+    }
+
+    #[test]
+    fn test_consume_magic_point() {
+        let magic_point = MagicPoint{ current_amount: 10, original_max_amout: 100, max_increments: vec![1, 2, 3] };
+        let recovered = magic_point.consume(9);
+        let expected = 1;
+
+        assert_eq!(recovered, expected);
+    }
+
+    #[test]
+    fn test_consume_magic_point_under_min_point() {
+        let magic_point = MagicPoint{ current_amount: 10, original_max_amout: 100, max_increments: vec![1, 2, 3] };
+        let recovered = magic_point.consume(11);
+        let expected = 0;
 
         assert_eq!(recovered, expected);
     }

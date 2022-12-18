@@ -1,14 +1,6 @@
-use anyhow::{self, Context};
 use std::cmp;
 use std::fmt;
-use thiserror::Error;
-
-// TODO: AppErrorはrpg::errors.rsに作ってそこから呼び出す
-#[derive(Error, Debug)]
-enum AppError {
-    #[error("invalid argument error: {0}")]
-    InvalidArgumentError(String),
-}
+use crate::rpg::errors::AppError;
 
 struct HitPoint {
     value: i16,

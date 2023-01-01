@@ -79,6 +79,22 @@ impl Member {
     }
 }
 
+struct Party {
+    const MEX_MEMBER_COUNT: u16 = 4;
+    members: Vec<Member>
+
+    pub fn new(members: Vec<Member>) -> Result<Self, AppError> {
+        if Self::MAX < value {
+            return Err(AppError::InvalidArgumentError(format!(
+                "{}以下を指定してください",
+                Self::MEX_MEMBER_COUNT
+            )));
+        }
+        Ok(Party { members: members })
+    }
+
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;

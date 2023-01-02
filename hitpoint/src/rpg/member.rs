@@ -2,6 +2,7 @@ use std::cmp;
 use std::fmt;
 use crate::rpg::errors::AppError;
 
+#[derive(Clone)]
 struct HitPoint {
     value: i16,
 }
@@ -45,6 +46,7 @@ impl HitPoint {
     }
 }
 
+#[derive(Clone)]
 enum State {
     Normal,
     Dead,
@@ -59,6 +61,7 @@ impl fmt::Display for State {
     }
 }
 
+#[derive(Clone)]
 struct Member {
     hit_point: HitPoint,
     state: State,
@@ -80,11 +83,14 @@ impl Member {
 }
 
 struct Party {
-    const MEX_MEMBER_COUNT: u16 = 4;
     members: Vec<Member>
+}
+
+impl Party {
+    const MEX_MEMBER_COUNT: u16 = 4;
 
     pub fn new(members: Vec<Member>) -> Result<Self, AppError> {
-        if Self::MAX < value {
+        if usize::from(Self::MEX_MEMBER_COUNT) > members.len() {
             return Err(AppError::InvalidArgumentError(format!(
                 "{}以下を指定してください",
                 Self::MEX_MEMBER_COUNT
@@ -93,6 +99,17 @@ struct Party {
         Ok(Party { members: members })
     }
 
+    pub fn add(&self, new_member: Member) -> Result<Self, AppError> {
+        if usize::from(Self::MEX_MEMBER_COUNT) == self.members.len() {
+            return Err(AppError::InvalidArgumentError(format!(
+                "パーティの定員である{}名に到達済です",
+                Self::MEX_MEMBER_COUNT
+            )));
+        }
+        let mut adding = self.members.to_vec();
+        adding.push(new_member);
+        Ok(Party { members: adding })
+    }
 }
 
 #[cfg(test)]

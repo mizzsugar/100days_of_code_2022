@@ -24,3 +24,6 @@ pub mod leet_39;
 pub mod leet_40;
 pub mod leet_46;
 pub mod leet_67;
+pub mod leet_118;
+pub mod leet_119;
+pub mod leet_205;

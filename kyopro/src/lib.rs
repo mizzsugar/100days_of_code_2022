@@ -31,3 +31,8 @@ pub mod leet_217;
 pub mod leet_219;
 pub mod leet_231;
 pub mod leet_326;
+pub mod leet_338;
+pub mod leet_342;
+pub mod leet_551;
+pub mod leet_575;
+pub mod leet_605;

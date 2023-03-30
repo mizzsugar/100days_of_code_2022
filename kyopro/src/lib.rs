@@ -40,3 +40,9 @@ pub mod leet_682;
 pub mod leet_844;
 pub mod leet_888;
 pub mod leet_896;
+pub mod leet_15;
+pub mod leet_905;
+pub mod leet_917;
+pub mod leet_1002;
+pub mod leet_1005;
+
